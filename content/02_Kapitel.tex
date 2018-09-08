@@ -1,4 +1,52 @@
-\section{Kapitel}\label{sec:kaptiel}
+\section{Evolutionärer Algorithmus}\label{sec:evol-alg}
+\todoask[inline]{Verlgeich Knappsack?}
+Für den Algorithmus wird angenommen,
+dass die eine Liste der möglichen Spendetermine wie folgt eingegeben wird:
+\begin{center}
+    \begin{tabular}{l|c|c|c|c}
+        PLZ     & Ort               &  Straße               & Datum     & Distanz   \\
+        \hline
+        12345   & Musterstadt       & Hauptstraße 42        & 5.3.2019  & 6.31      \\
+        04711   & Beispieldorf      & Spenderstraße. 13     & 894.2019  & 20.42     \\
+    \end{tabular}
+\end{center}
+
+Für den Algorithmus selbst sind hierbei lediglich die letzen beiden Merkmale notwendig.
+Die anderen Merkmale dienen der finalen Darstellung für den Anwender.
+
+\paragraph{Bewertungsfunktion}
+Die Bewertungsfunktion hat das Ziel die Anzahl der besuchten Termine zu maximieren und die Gesamtstrecke zu minimieren.
+Dies soll unter Beachtung der bereits vorgestellten Bedingungen geschehen.
+
+Im Vergleich zu beispielsweiße einer Produktionsplanung gibt es bei den Bedingungen keinen Spielraum.
+In einer Produktionsplanung ist es möglicherweiße gestattet die maximale Anzahl der verplanten Stunden zu überschreiten.
+Dies wird in der Fitness entsprechend bestraft. Aber sollte das beste Ergebnis Überstunden enthalten ist es dennoch ein gültiges Ergebnis.
+
+Die Bedingungen für das Blutspenden sind jedoch \enquote{harte} Bedingungen.
+Das heißt, dass beispielsweiße keine Spende möglich ist, wenn die letze Spende erst 55 Tage her ist und nicht die geforderten 56.
+Um solche Ergebnisse zu verhindern ist de Fitness für diese Gene $0$.
+
+Insgesamt lässt sich die Fitness eines Gens nach Formel \ref{eqn:fitness} berechnen.
+
+\begin{equation}
+    \label{eqn:fitness}
+    f(x)=
+    \begin{cases}
+        0,              & \text{wenn Tage zwischen zwei Terminen} < 56 \\
+        0,              & \text{wenn Anzahl Spenden in 12 Monaten} > 6 \\
+        w_c * \sum x_i + (1 - w_c) * \sum x_i * d_i & \text{sonst}
+    \end{cases}
+\end{equation}
+
+
+\paragraph{Genstring}
+Der Genstring wird als Bitstring modelliert.
+Eine $0$ steht für Termine, welche nicht wahrgenommen werden und eine $1$ ensprechend für besuchte Termine.
+
+
+\paragraph{Mutationen}
+
+\newpage
 
 \todo[inline]{Spezifikation einer Bewertungsfunktion,
 um die Verbesserung von diesen Entscheidungen messen zu können.}
@@ -15,3 +63,4 @@ arithmetische Rekombination, (order crossover OX, partial map crossover PMX)}
 - Nachbarschaft (Austausch „ähnlicher Gene“)
 - Evolution auf lokalen Minima
 - Schrittweitensteuerung durch 1/5-Regel oder Erweiterung Genstring}
+
