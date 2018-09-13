@@ -1,5 +1,4 @@
 \section{Evolutionärer Algorithmus}\label{sec:evol-alg}
-\todoask[inline]{Verlgeich Knappsack?}
 Für den Algorithmus wird angenommen,
 dass die eine Liste der möglichen Spendetermine wie folgt eingegeben wird:
 \begin{table}[ht]
@@ -33,8 +32,8 @@ Somit gilt:
 \begin{equation}
     \label{eqn:genstring}
     \begin{split}
-        b_i &\in \{ 0,1 \} \\
-        b_i &= 1 \Rightarrow \text{Termin $i$ wird wahrgenommen} \\
+        x_i &\in \{ 0,1 \} \\
+        x_i &= 1 \Rightarrow \text{Termin $i$ wird wahrgenommen} \\
         x   &= b_1b_2...b_n \in \{0,1\}^n\text{ mit $n = $ Anzahl der eingegebenen Termine}
     \end{split}
 \end{equation}
@@ -64,16 +63,16 @@ werden die jeweiligen Bewertungen auf den Bereich $[0,1]$ normiert.
 Für die Anzahl geschieht dies durch eine Division mit $c$.
 
 Das Normieren der Strecke ist hierbei komplexer.
-Deren Bewertung wird mit $(1 - \frac{\sum b_i * d_i}{max(d)t* \sum b_i})$ berechnet.
+Deren Bewertung wird mit $(1 - \frac{\sum x_i * d_i}{max(d)t* \sum x_i})$ berechnet.
 Durch den Bruch wird der durchschnittliche Abstand zu maximal möglichen Strecke ($max(d)$) berechnet.
 Am anschaulichsten erklärt sich diese Formel durch Betrachtung der Grenzfälle:
 \begin{table}[ht]% Try here, and then top
     \begin{center}
         \begin{tabular}{l|c|c}
-            Fall                            & $\cfrac{\sum b_i * d_i}{max(d) * \sum b_i}$  &  Bewertung \\
+            Fall                            & $\cfrac{\sum x_i * d_i}{max(d) * \sum x_i}$  &  Bewertung \\
             \hline
-            $\forall b_i = 1: d_i = max(d)$ & $1$                                           & $0$       \\
-            $\forall b_i = 1: d_i = 0$      & $0$                                           & $1$       \\
+            $\forall x_i = 1: d_i = max(d)$ & $1$                                           & $0$       \\
+            $\forall x_i = 1: d_i = 0$      & $0$                                           & $1$       \\
         \end{tabular}
     \end{center}
     \caption{Grenzfälle Bewertung der Strecke}
@@ -87,22 +86,32 @@ Die Funktion $B(x)$ bestimmt hierbei, ob die Nebenbedingungen erfüllt sind.
     f(x)=
     \begin{cases}
         0,              & \text{wenn } B(x) = 0 \\
-        w * \cfrac{\sum b_i}{c} + (1 - w) * \left(1 - \cfrac{\sum x_i * d_i}{max(d) * \sum x_i}\right) & \text{sonst}
+        w * \cfrac{\sum x_i}{c} + (1 - w) * \left(1 - \cfrac{\sum x_i * d_i}{max(d) * \sum x_i}\right) & \text{sonst}
     \end{cases}
 \end{equation}
+
+In Formel \ref{eqn:bedingung} ist die Formel für die Bedingungen dargestellt.
+$t_i$ steht hierbei für das Datum eines Spendetermins.
+Ist das Ergebnis $1$ so gelten die Bedingungen als erfüllt.
+
+
+
+\begin{multline}
+    \label{eqn:bedingung}
+    B(x)=
+    \begin{cases}
+        0, & \text{wenn } \exists x_i \in x : x_i = 1  \wedge \\
+           & \hspace{10ex} \lvert \{ x_j\in x \mid x_j = 1 \wedge i < j \wedge t_j - t_i <= 1y  \} \rvert > c   \\
+        0, & \text{wenn } \exists x_i, x_j \in x : \left( (x_i = x_j = 1) \wedge (i < j) \wedge (t_j - t_i < 56d) \right)    \\
+        1  & \text{sonst}
+    \end{cases}
+\end{multline}
 
 Durch die verhältnismäßig strengen Bedingungen ist mit einer hohen Anazhl an \emph{Totgeburten} zu rechnen.
 Kompensiert wird dies durch eine große Population um ausreichend \enquote{gesunde} Gene zur späteren Rekombination zu erhalten.
 
-\begin{equation}
-    \label{eqn:bedingung}
-    B(x)=
-    \begin{cases}
-        0, & \text{wenn } \exists b_i : \lvert \{ b_j\in x \mid i < j \wedge t_j - t_i <= 1y  \} \rvert > c   \\
-        0, & \text{wenn } \exists b_i : \{ b_j\in x \mid i < j \wedge t_j - t_i < 56d \}   \\
-        1  & \text{sonst}
-    \end{cases}
-\end{equation}
+
+
 
 \subsection{Kombination}\label{sec:evol-alg-kombi}
 Zwei Gene werden durch einen sogenannten \emph{1-Point Crossover} \cite{AJ2015}.
@@ -112,11 +121,11 @@ Folgende Tabelle zeigt beispielhaft den Crossover an Position 4 von zwei Bitstir
 \begin{table}[ht]
     \begin{center}
         \begin{tabular}{l c}
-            Elternteil 1 & \colorbox{lime!30}{$1010$} $\mid$ \colorbox{lime!30}{$10010$} \\
-            Elternteil 2 & \colorbox{cyan!30}{$1011$} $\mid$ \colorbox{cyan!30}{$10110$} \\
+            Elternteil 1 & \colorbox{lime!30}{$1010$~}$\mid$\colorbox{lime!30}{ $10010$} \\
+            Elternteil 2 & \colorbox{cyan!30}{$1011$~}$\mid$\colorbox{cyan!30}{ $10110$} \\
             \hline
-            Kind 1       & \colorbox{lime!30}{$1010$} $\mid$ \colorbox{cyan!30}{$10110$} \\
-            Kind 2       & \colorbox{cyan!30}{$1011$} $\mid$ \colorbox{lime!30}{$10010$} \\
+            Kind 1       & \colorbox{lime!30}{$1010$~}$\mid$\colorbox{cyan!30}{ $10110$} \\
+            Kind 2       & \colorbox{cyan!30}{$1011$~}$\mid$\colorbox{lime!30}{ $10010$} \\
         \end{tabular}
     \end{center}
     \caption{1-Point Crossover (nach \cite{AJ2015})}
@@ -173,26 +182,18 @@ Initial wird die Population erzeugt indem für jedes Gen drei zufällige Bits ge
 Durch eine hohe Zahl an Totgeburten hat dies den Nachteil,
 dass anfangs nur wenige \enquote{nützliche} Gene zur Verfügung stehen.
 Dies wird durch eine hohe Populationszahl kompensiert.
-
-Das beispielhafte Programm, welches in \todo[inline]{Kapitel einfügen} vorgestellt wird,
+Ein prototypisches Programm, welches in \autoref{sec:prototyp} vorgestellt wird,
 zeigt, dass eine Population von 1000 hierfür ausreicht.
 
-Die Evolution geschieht nach folgenden Regeln:
+Die Evolution geschieht nach folgenden Regeln.
+Die entsprechenden Parameter können im Programm variiert werden.
 \begin{itemize}
-    \setlength\itemsep{-0.5em}
-    \item Ein parametisierter Anteil der besten Gene \textit{überlebt} eine Generation
+    \item Eine \emph{Elite} der fittesten Gene \enquote{überlebt} eine Generation
     \item Die restlichen Gene der nächsten Generation werden durch Kombination erzeugt.
     \begin{itemize}
-        \vspace{-1em}
-        \setlength\itemsep{-0.5em}
         \item Hierfür kommen nach dem in \autoref{sec:evol-alg-kombi} vorgestellten Verfahren alle Gene der aktuellen Generation in Frage.
-        \item Zusätzlich wird ein neues Gen mit einer parametiersten Wahrscheinlichkeit mutiert.
+        \item Zusätzlich wird ein neu erzeugtes Gen mit einer gewissen Wahrscheinlichkeit mutiert.
     \end{itemize}
     \item Nach Kombination und Mutation werden alle Gene, welche nicht die Bedingungen erfüllen aus der Population entfernt.
-    \item Der gesamte Algorithmus endet wenn die durchschnittliche und die beste Fitness mit gewisser Präzision identisch sind oder spätestens nach einer maximalen Anzahl von Durchläufen
+    \item Der gesamte Algorithmus endet, wenn die durchschnittliche und die beste Fitness mit gegebener Präzision identisch sind oder spätestens nach einer maximalen Anzahl von Durchläufen
 \end{itemize}
-
-\newpage
-
-\todo[inline]{Spezifikation einer Bewertungsfunktion,
-um die Verbesserung von diesen Entscheidungen messen zu können.}
