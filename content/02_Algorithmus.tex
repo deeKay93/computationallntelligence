@@ -177,14 +177,23 @@ Da positive Bits nur Verschoben und keine negativen Bits aktiviert werden,
 erhöht sich die Anazhl der besuchten Termine nicht durch die Mutation.
 Dies geschieht jedoch mit der vorherigen Rekombination zweier Gene.
 
-\subsection{Population \& Evolution}
-Initial wird die Population erzeugt indem für jedes Gen drei zufällige Bits gesetzt werden.
+\subsection{Initiale Population}
+Initial wird die Population erzeugt,
+indem für jedes Gen drei zufällige Bits gesetzt werden.
+Um die Wahrscheinlichkeit zu reduzieren, dass diese Bits zu Nah zueinander sind,
+wird jedes der Bits auf ein Drittel des Genstrings beschränkt.
+
+Zum Vergleich wurden 100 mal jeweils Populationen von 1000 Genen mit beiden Verfahren erzeugt.
+Der Versuch zeigt, dass mit ohne diese Beschränkung lediglich etwa 35\% der Gene die Bedingungen erfüllen.
+Die Beschränkung hebt den Anteil der gültigen Gene auf etwa 80\%.
+
 Durch eine hohe Zahl an Totgeburten hat dies den Nachteil,
 dass anfangs nur wenige \enquote{nützliche} Gene zur Verfügung stehen.
 Dies wird durch eine hohe Populationszahl kompensiert.
 Ein prototypisches Programm, welches in \autoref{sec:prototyp} vorgestellt wird,
 zeigt, dass eine Population von 1000 hierfür ausreicht.
 
+ \subsection{Population}
 Die Evolution geschieht nach folgenden Regeln.
 Die entsprechenden Parameter können im Programm variiert werden.
 \begin{itemize}

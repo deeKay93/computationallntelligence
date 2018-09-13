@@ -10,4 +10,166 @@ in folgenden Punkten geändert:
     \item Anpassung der initialen Population
 \end{itemize}
 
+
+\noindent
 Zur Validierung des Prototyps stehen Testdaten zur Verfügung.
+Die Orte der Tesdtdaten entstammen aus tatsächlichen Spendeorten in einem Umkreis von 25 km um einen bestimmten Ort.
+Da lediglich Daten bis Mitte Dezember 2018 vorliegen,
+werden für die Testdaten zufällige Termine für das Jahr 2019 erzeugt.
+
+
+% Echte Daten von:
+% https://www.blutspende.de/infos-zur-blutspende/blutspende-termine/blutspendetermine.php?umkreis=25&abgeschickt=1&plz_ort_eingabe=74076&d_v_eingabe=13.09.2018
+
+\subsection{Entwicklung der Fitness}
+
+Führt man den Prototypen mit den Testdaten aus so lässt sich für die Fitnesswerte die Entwicklung in \autoref{fig:fitness} beobachten.
+Zwar fällt die schlechteste Fitness der ersten Generation im Vergleich zur initialen,
+aber sowohl die durchschnittliche, als auch die beste Fitness ansteigen.
+Dies bedeutet, dass zwar mindestens ein Gen mit einer schlechteren Fitness entsteht,
+aber insgesamt \enquote{bessere} Gene erzeugt werden.
+
+Der beste und der durchschnittliche Fitnesswert konvertieren gegen $\sim 0,953$.
+Dies ist auch das in diesem Durchlauf erreichte Optimum.
+Das beste Gen erreicht diesen Wert bereits in der achten Generation.
+
+Mit die schlechteste Fitness kovergiert gegen $\sim 0,83$,
+macht aber dann in der letzten Generation einen Sprung zu $\sim 0,953$.
+Wahrscheinlich werden in dieser Generation die letzen \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
+
+Interessanterweise sind in der vierzehnten Generation
+die Fitnesswerte des besten und des schlechtesten Gens identisch mit $0,9531284454244\highlight{lime!30}{763}$.
+Der Gesamtdurchschnitt wird jedoch lediglich mit $0,9531284454244\highlight{lime!30}{614}$ angegeben.
+In den letzten drei Ziffern ist der Durchschnitt also geringer als das Minimum.
+Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der Berechnug zurückgeführt werden.
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            reverse legend,
+            xlabel={Generation},
+            ylabel={Fitness},
+            legend pos=south east,
+            width=12cm,
+            height=7.41cm,
+            enlarge x limits=false,
+            enlarge y limits=false,
+            ymin=0,
+            ymax=1
+        ]
+        \addplot[smooth,mark=*,LineRed] plot coordinates {
+            (0,0.2870406100698273)
+            (1,0.2099411980889379)
+            (2,0.31006982726938626)
+            (3,0.39900312385152514)
+            (4,0.4881201764057332)
+            (5,0.5721609702315326)
+            (6,0.6576189819919147)
+            (7,0.6866432377802278)
+            (8,0.7322882212421904)
+            (9,0.7915803013597943)
+            (10,0.8064645350973907)
+            (11,0.8143697170158031)
+            (12,0.8251690554943036)
+            (13,0.8288239617787578)
+            (14,0.9531284454244763)
+        };
+        \addlegendentry{Schlechteste Fitness}
+        \addplot[smooth,mark=diamond*,LineBlue] plot coordinates {
+            (0,0.487608275473627)
+            (1,0.5212174183065748)
+            (2,0.5873159147484383)
+            (3,0.6612959575750835)
+            (4,0.7191537766318545)
+            (5,0.780470746258059)
+            (6,0.8203987050017139)
+            (7,0.8696678703445766)
+            (8,0.9067217993824239)
+            (9,0.920546737735418)
+            (10,0.9326826212355643)
+            (11,0.941074863523486)
+            (12,0.9465031836095645)
+            (13,0.952438020104876)
+            (14,0.9531284454244614)
+        };
+        \addlegendentry{Durchschnittliche Fitness}
+        \addplot[smooth,mark=triangle*,LineGreen] plot coordinates {
+            (0,0.5920066152149945)
+            (1,0.7430742374127159)
+            (2,0.8150973906651967)
+            (3,0.9110529217199559)
+            (4,0.9130374862183022)
+            (5,0.9314773980154355)
+            (6,0.9410832414553473)
+            (7,0.9429162072767365)
+            (8,0.9531284454244763)
+            (9,0.9531284454244763)
+            (10,0.9531284454244763)
+            (11,0.9531284454244763)
+            (12,0.9531284454244763)
+            (13,0.9531284454244763)
+            (14,0.9531284454244763)
+        };
+        \addlegendentry{Beste Fitness}
+        \end{axis}
+    \end{tikzpicture}
+	\caption{Fitnesswerte der verschiedenen Generationen}
+	\label{fig:fitness}
+\end{figure}
+
+
+\subsection{Entwicklung gültiger Gene}
+
+\autoref{fig:ueberlebende} zeigt die Anzahl der gültigen Gene im Verlauf der Generationen.
+In der initialen Generation erfüllen lediglich $338$ Gene - etwa ein Drittel - die gestellten Bedingungen.
+Von Generation $1$ bis $9$ schwank diese Zahl zwischen $848$ und $916$ um dann zu steigen,
+ bis in Generation $14$ alle Gene gültig sind.
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            legend pos=south east,
+            enlarge x limits=false,
+            enlarge y limits=false,
+            width=12cm,
+            height=7.41cm,
+            ymin=300,
+            ymax=1000
+        ]
+        \addplot[
+            name path=B,
+            LineGreen,
+            mark=*
+            ] coordinates {
+            (0, 338)
+            (1, 916)
+            (2, 908)
+            (3, 883)
+            (4, 848)
+            (5, 866)
+            (6, 866)
+            (7, 872)
+            (8, 865)
+            (9, 877)
+            (10,951)
+            (11,988)
+            (12,990)
+            (13,999)
+            (14,1000)
+        } \closedcycle;
+        \end{axis}
+    \end{tikzpicture}
+	\caption{Anzahl gültiger Gene der verschiedenen Generationen}
+	\label{fig:ueberlebende}
+\end{figure}
+
+
+\todoask[inline]{Entwicklung 1/5-Regel?}
+
+\subsection{Bewertung}
+Daraus, dass in der letzten Generation sowohl Minimum und Maximum die gleiche Fitness haben,
+als auch alle Gene die Bedingungen erfüllen kann geschlossen werden, dass in dieser Generation alle Gene identisch sind.
+Somit endet der Algorithmus sinnvolerweiße an dieser Stelle.
+

@@ -4,8 +4,19 @@
 \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,bending,automata,shapes}
+\usetikzlibrary{patterns}
 \usepackage[underline=true,rounded corners=false]{pgf-umlsd}
 
 % Reduce distance before caption
 \usepackage[skip=5pt]{caption}
 \captionsetup[table]{position=below,skip=-5pt}
+
+% Plots
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{fillbetween}
+\definecolor{LineBlue}{HTML}{396AB1}
+\definecolor{LineOrange}{HTML}{DA7C30}
+\definecolor{LineGreen}{HTML}{3E9651}
+\definecolor{LineRed}{HTML}{CC2529}
+\definecolor{LineGray}{HTML}{535154}

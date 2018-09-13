@@ -15,6 +15,14 @@
 \usepackage{url}
 \newcommand{\code}[1]{\texttt{#1}}
 
+\newcommand{\reducedstrut}{\vrule width 0pt height .9\ht\strutbox depth .9\dp\strutbox\relax}
+\newcommand{\highlight}[2]{
+  \begingroup
+  \setlength{\fboxsep}{0pt}
+  \colorbox{#1}{\reducedstrut#2\/}
+  \endgroup
+}
+
 % Additional Setup
 \usepackage[unicode=true,hypertexnames=false,colorlinks=true,linkcolor=LinkColor,citecolor=LinkColor,urlcolor=LinkColor,pdftex]{hyperref}
 
