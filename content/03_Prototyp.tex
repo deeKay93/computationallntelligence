@@ -27,19 +27,20 @@ Führt man den Prototypen mit den Testdaten aus so lässt sich für die Fitnessw
 Zwar fällt die schlechteste Fitness der ersten Generation im Vergleich zur initialen,
 aber sowohl die durchschnittliche, als auch die beste Fitness ansteigen.
 Dies bedeutet, dass zwar mindestens ein Gen mit einer schlechteren Fitness entsteht,
-aber insgesamt \enquote{bessere} Gene erzeugt werden.
+jedoch insgesamt \enquote{bessere} Gene erzeugt werden.
 
-Der beste und der durchschnittliche Fitnesswert konvertieren gegen $\sim 0,953$.
+Der beste und der durchschnittliche Fitnesswert konvertieren gegen $\sim~0,953$.
 Dies ist auch das in diesem Durchlauf erreichte Optimum.
-Das beste Gen erreicht diesen Wert bereits in der achten Generation.
+Das beste Gen erreicht diesen Wert bereits in der siebten Generation.
 
-Mit die schlechteste Fitness kovergiert gegen $\sim 0,83$,
-macht aber dann in der letzten Generation einen Sprung zu $\sim 0,953$.
-Wahrscheinlich werden in dieser Generation die letzen \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
+Die schlechteste Fitness fällt nach der initialen Generation ab,
+steigt dann aber wieder an und konvergiert zunächst gegen $\sim~0,82$,
+macht jedoch dann in der letzten Generation einen Sprung zu $\sim~0,953$.
+Wahrscheinlich werden in dieser Generation die verbleibenden \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
 
-Interessanterweise sind in der vierzehnten Generation
+Interessanterweise sind in der zwölften Generation
 die Fitnesswerte des besten und des schlechtesten Gens identisch mit $0,9531284454244\highlight{lime!30}{763}$.
-Der Gesamtdurchschnitt wird jedoch lediglich mit $0,9531284454244\highlight{lime!30}{614}$ angegeben.
+Der Gesamtdurchschnitt wird jedoch lediglich mit $0,9531284454244\highlight{lime!30}{685}$ angegeben.
 In den letzten drei Ziffern ist der Durchschnitt also geringer als das Minimum.
 Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der Berechnug zurückgeführt werden.
 
@@ -58,58 +59,52 @@ Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der B
             ymin=0,
             ymax=1
         ]
-        \addplot[smooth,mark=*,LineRed] plot coordinates {
-            (0,0.2870406100698273)
-            (1,0.2099411980889379)
-            (2,0.31006982726938626)
-            (3,0.39900312385152514)
-            (4,0.4881201764057332)
-            (5,0.5721609702315326)
-            (6,0.6576189819919147)
-            (7,0.6866432377802278)
-            (8,0.7322882212421904)
-            (9,0.7915803013597943)
-            (10,0.8064645350973907)
-            (11,0.8143697170158031)
-            (12,0.8251690554943036)
-            (13,0.8288239617787578)
-            (14,0.9531284454244763)
+        \addplot[mark=*,LineRed] plot coordinates {
+            (0,0.39809812568908487)
+            (1,0.3137908857037854)
+            (2,0.35191106210951856)
+            (3,0.43761944138184494)
+            (4,0.4597023153252481)
+            (5,0.5794377067254686)
+            (6,0.6075523704520397)
+            (7,0.697827085630283)
+            (8,0.7221536199926498)
+            (9,0.8083664094083058)
+            (10,0.8288239617787578)
+            (11,0.8288239617787578)
+            (12,0.9531284454244763)
         };
         \addlegendentry{Schlechteste Fitness}
-        \addplot[smooth,mark=diamond*,LineBlue] plot coordinates {
-            (0,0.487608275473627)
-            (1,0.5212174183065748)
-            (2,0.5873159147484383)
-            (3,0.6612959575750835)
-            (4,0.7191537766318545)
-            (5,0.780470746258059)
-            (6,0.8203987050017139)
-            (7,0.8696678703445766)
-            (8,0.9067217993824239)
-            (9,0.920546737735418)
-            (10,0.9326826212355643)
-            (11,0.941074863523486)
-            (12,0.9465031836095645)
-            (13,0.952438020104876)
-            (14,0.9531284454244614)
+        \addplot[mark=diamond*,LineBlue] plot coordinates {
+            (0,0.5010904812526614)
+            (1,0.533322685651329)
+            (2,0.5815548190310615)
+            (3,0.6395867099505065)
+            (4,0.700842131783521)
+            (5,0.7559416493970084)
+            (6,0.8170118889289913)
+            (7,0.870926735946039)
+            (8,0.9198439253202729)
+            (9,0.9420204083027279)
+            (10,0.9454525511769829)
+            (11,0.9520316362842004)
+            (12,0.9531284454244685)
         };
         \addlegendentry{Durchschnittliche Fitness}
-        \addplot[smooth,mark=triangle*,LineGreen] plot coordinates {
-            (0,0.5920066152149945)
-            (1,0.7430742374127159)
-            (2,0.8150973906651967)
-            (3,0.9110529217199559)
-            (4,0.9130374862183022)
-            (5,0.9314773980154355)
-            (6,0.9410832414553473)
-            (7,0.9429162072767365)
+        \addplot[mark=triangle*,LineGreen] plot coordinates {
+            (0,0.6075248070562294)
+            (1,0.7140963800073502)
+            (2,0.7776552737963984)
+            (3,0.8356045571481074)
+            (4,0.8917998897464168)
+            (5,0.9459619625137817)
+            (6,0.9459619625137817)
+            (7,0.9531284454244763)
             (8,0.9531284454244763)
             (9,0.9531284454244763)
             (10,0.9531284454244763)
             (11,0.9531284454244763)
             (12,0.9531284454244763)
-            (13,0.9531284454244763)
-            (14,0.9531284454244763)
         };
         \addlegendentry{Beste Fitness}
         \end{axis}
@@ -118,7 +113,7 @@ Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der B
 	\label{fig:fitness}
 \end{figure}
 
-
+\newpage
 \subsection{Entwicklung gültiger Gene}
 
 \autoref{fig:ueberlebende} zeigt die Anzahl der gültigen Gene im Verlauf der Generationen.
@@ -133,43 +128,76 @@ Von Generation $1$ bis $9$ schwank diese Zahl zwischen $848$ und $916$ um dann z
             legend pos=south east,
             enlarge x limits=false,
             enlarge y limits=false,
-            width=12cm,
-            height=7.41cm,
-            ymin=300,
-            ymax=1000
+            width=8.09cm,
+            height=5cm,
+            ymin=375,
+            ymax=500
         ]
         \addplot[
             name path=B,
             LineGreen,
             mark=*
             ] coordinates {
-            (0, 338)
-            (1, 916)
-            (2, 908)
-            (3, 883)
-            (4, 848)
-            (5, 866)
-            (6, 866)
-            (7, 872)
-            (8, 865)
-            (9, 877)
-            (10,951)
-            (11,988)
-            (12,990)
-            (13,999)
-            (14,1000)
-        } \closedcycle;
+            (0, 391)
+            (1, 461)
+            (2, 449)
+            (3, 454)
+            (4, 446)
+            (5, 432)
+            (6, 446)
+            (7, 436)
+            (8, 452)
+            (9, 484)
+            (10,485)
+            (11,498)
+            (12,500)
+        };
         \end{axis}
     \end{tikzpicture}
-	\caption{Anzahl gültiger Gene der verschiedenen Generationen}
+	\caption{Anzahl gültiger Gene}
 	\label{fig:ueberlebende}
 \end{figure}
 
+\subsection{Entwicklung der Mutationsrate}
 
-\todoask[inline]{Entwicklung 1/5-Regel?}
+In \autoref{fig:mutationsrate} wird die Entwicklung der Mutationsrate dargestellt.
+Der Anstieg in den ersten beiden Generationen und späeter Rückgang zeigt,
+dass gerade am Anfang durch Mutationen eine deutliche Verbesserung der Gene erreicht werden kann.
+Gegen Ende nimmt diese Verbesserung ab. Hieraus lässt sich auf ein (lokales) Optimum schließen.
 
-\subsection{Bewertung}
-Daraus, dass in der letzten Generation sowohl Minimum und Maximum die gleiche Fitness haben,
-als auch alle Gene die Bedingungen erfüllen kann geschlossen werden, dass in dieser Generation alle Gene identisch sind.
-Somit endet der Algorithmus sinnvolerweiße an dieser Stelle.
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            legend pos=south east,
+            enlarge x limits=false,
+            enlarge y limits=false,
+            width=8.09cm,
+            height=5cm,
+            ymin=0,
+            ymax=5
+        ]
+        \addplot[
+            LineBlue,
+            mark=*
+            ] coordinates {
+            (0, 3)
+            (1, 4)
+            (2, 5)
+            (3, 4)
+            (4, 3)
+            (5, 2)
+            (6, 1)
+            (7, 1)
+            (8, 1)
+            (9, 1)
+            (10,1)
+            (11,1)
+            (12,1)
+        };
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Mutationsrate}
+    \label{fig:mutationsrate}
+\end{figure}
 

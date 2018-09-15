@@ -38,6 +38,8 @@ Somit gilt:
     \end{split}
 \end{equation}
 
+
+
 \subsection{Bewertungsfunktion}
 Die Bewertungsfunktion hat das Ziel die Anzahl der besuchten Termine zu maximieren und die Gesamtstrecke zu minimieren.
 Dies soll unter Beachtung der bereits vorgestellten Bedingungen geschehen.
@@ -170,8 +172,9 @@ Daher wird zur Mutation kein Bit invertiert sondern zufällig in seiner unmittel
 Die Weite und Richtung der Verschiebung wird zufäiig ermittelt. Als maximal mögliche Verschiebung wird die Schrittweite angenommen.
 Dise wird inital gesetzt und dann mittels der $\frac{1}{5}$-Regel iterativ angepasst.
 
-Die Regel beasgt, dass die Schrittweite erhöht wird, falls mehr als $\frac{1}{5}$ der Mutationen besser sind als ihre Ursprungsgene
+Die Regel besagt, dass die Schrittweite erhöht wird, falls mehr als $\frac{1}{5}$ der Mutationen besser sind als ihre Ursprungsgene
 und verringert wird, falls weniger als $\frac{1}{5}$ erfolgreich sind.
+Um sicherzustellen, dass jederzeit eine Mutation möglich ist, wird die Schrittweite nach unten auf $1$ beschränkt.
 
 Da positive Bits nur Verschoben und keine negativen Bits aktiviert werden,
 erhöht sich die Anazhl der besuchten Termine nicht durch die Mutation.
@@ -191,9 +194,9 @@ Durch eine hohe Zahl an Totgeburten hat dies den Nachteil,
 dass anfangs nur wenige \enquote{nützliche} Gene zur Verfügung stehen.
 Dies wird durch eine hohe Populationszahl kompensiert.
 Ein prototypisches Programm, welches in \autoref{sec:prototyp} vorgestellt wird,
-zeigt, dass eine Population von 1000 hierfür ausreicht.
+zeigt, dass eine Population von 500 hierfür ausreicht.
 
- \subsection{Population}
+\subsection{Evolutoion}
 Die Evolution geschieht nach folgenden Regeln.
 Die entsprechenden Parameter können im Programm variiert werden.
 \begin{itemize}
@@ -206,3 +209,27 @@ Die entsprechenden Parameter können im Programm variiert werden.
     \item Nach Kombination und Mutation werden alle Gene, welche nicht die Bedingungen erfüllen aus der Population entfernt.
     \item Der gesamte Algorithmus endet, wenn die durchschnittliche und die beste Fitness mit gegebener Präzision identisch sind oder spätestens nach einer maximalen Anzahl von Durchläufen
 \end{itemize}
+
+\subsection{Pareto-Front}
+Eine maxmimale Anazhl von Terminen und eine minimale Gesamtstrecke sind zwei entgegengesetze Ziele.
+Bezüglich der Strecke wäre es am optimalsten keinen Termin wahrzunehmen,
+da so die Gesamtstrecke mit $0$ minimal ist.
+Ebenso muss eine Strecke in Kauf genommen werden,
+wenn die maximal mögliche Anzahl (bei Männern $6$) von Terminen besucht werden soll.
+Hat man sechs Termine mit einer unter diesen Bedingungen minimalen Gesamtstrecke,
+so lässt sich diese nur noch verringern, indem die Anazhl der Termine verringert wird.
+Für alle Kombinationen, in welchen sich die Fitness des einen Aspekts nur noch verbessern lässt,
+indem die Fitness des Anderen Aspekts verschlechtert spricht man von einer \emph{Pareto-Front}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{pareto.png}
+    \caption{Beispiel einer Pareto-Front \cite{Paretofr62:online}}
+    \label{fig:pareto}
+\end{figure}
+
+Eine beispielhafte Darstellung der Pareto-Front zeigt \autoref{fig:pareto}.
+$f1$ ist z.B. die Fitness der Anzahl und $f2$ die Fintess der Strecke.
+In diesem Programmentwurf lässt sich mittels der GEwichtung steuern,
+in welchem Bereich der Pareto-Front eine Lösung gesucht wird.
+Je stärker die Anzahl gewichtet wird, desto weiter Links befindet sich die Lösung in diesem Schaubild.
