@@ -56,12 +56,6 @@ steigt dann aber wieder an und konvergiert zunächst gegen ca. $0,82$,
 macht jedoch dann in der letzten Generation einen Sprung zu ca. $0,953$.
 Wahrscheinlich werden in dieser Generation die verbleibenden \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
 
-Interessanterweise sind in der zwölften Generation
-die Fitnesswerte des besten und des schlechtesten Gens identisch mit $0,9531284454244\highlight{lime!30}{763}$.
-Der Gesamtdurchschnitt wird jedoch lediglich mit $0,9531284454244\highlight{lime!30}{685}$ angegeben.
-In den letzten drei Ziffern ist der Durchschnitt also geringer als das Minimum.
-Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der Berechnug zurückgeführt werden.
-
 \begin{figure}[ht]
     \centering
     \begin{tikzpicture}
@@ -131,7 +125,16 @@ Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der B
 	\label{fig:fitness}
 \end{figure}
 
-\newpage
+Interessanterweise sind in der zwölften Generation
+die Fitnesswerte des besten und des schlechtesten Gens identisch mit $0,9531284454244\highlight{lime!30}{763}$.
+Der Gesamtdurchschnitt wird jedoch lediglich mit $0,9531284454244\highlight{lime!30}{685}$ angegeben.
+In den letzten drei Ziffern ist der Durchschnitt also geringer als das Minimum.
+Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der Berechnug zurückgeführt werden.
+
+Daraus, dass in der letzten Generation sowohl Minimum und Maximum die gleiche Fitness haben,
+als auch alle Gene die Bedingungen erfüllen kann geschlossen werden, dass in dieser Generation alle Gene identisch sind.
+Somit endet der Algorithmus sinnvollerweiße an dieser Stelle.
+
 \subsection{Entwicklung gültiger Gene}
 
 \autoref{fig:ueberlebende} zeigt die Anzahl der gültigen Gene im Verlauf der Generationen.
