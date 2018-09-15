@@ -1,8 +1,8 @@
 \section{Prototyp}\label{sec:prototyp}
 
 Der diesem Programmentwurf angehängte Prototyp basiert grundlegend auf der Implementierung in \cite{Quiz15Th91:online}.
-Diese Implementierung löst das Knappsackproblem mit Hilfe eines Genitischen Algorithmus.
-Sie wurde auf die hier beschriebenen Methoden angepasst und unter anderm
+Diese Implementierung löst das Knappsackproblem mit Hilfe eines Genetischen Algorithmus.
+Sie wurde auf die hier beschriebenen Methoden angepasst und unter anderem
 in diesen Punkten geändert:
 \begin{itemize}
     \item Eingabe der Daten über eine wohlgeformte CSV-Datei anstatt einer unübersichtlichen Textdatei.
@@ -13,11 +13,11 @@ in diesen Punkten geändert:
 
 \noindent
 Zur Validierung des Prototyps stehen Testdaten zur Verfügung.
-Die Orte der Tesdtdaten entstammen aus tatsächlichen Spendeorten in einem Umkreis von 25 km um einen bestimmten Ort.
+Die Orte der Testdaten entstammen aus tatsächlichen Spende-Orten in einem Umkreis von 25 km um einen bestimmten Ort.
 Da lediglich Daten bis Mitte Dezember 2018 vorliegen,
 werden für die Testdaten zufällige Termine für das Jahr 2019 erzeugt.
 
-In den nächsten Unterabschnitten wird der Verlauf verscheidener Werte während eines Durchlaufes betrachtet.
+In den nächsten Unterabschnitten wird der Verlauf verschiedener Werte während eines Durchlaufes betrachtet.
 Hierzu wird das Programm mit folgenden Parametern ausgeführt:
 \begin{table}[ht]% Try here, and then top
     \begin{center}
@@ -32,7 +32,8 @@ Hierzu wird das Programm mit folgenden Parametern ausgeführt:
             Präzision für Stoppbedingung  & $10^{-4}$
         \end{tabular}
     \end{center}
-    \caption{Parameter }
+    \caption{Parameter}
+    \label{tab:parameter}
   \end{table}
 
 
@@ -41,9 +42,10 @@ Hierzu wird das Programm mit folgenden Parametern ausgeführt:
 
 \subsection{Entwicklung der Fitness}
 
-Führt man den Prototypen mit den Testdaten aus so lässt sich für die Fitnesswerte die Entwicklung in \autoref{fig:fitness} beobachten.
-Zwar fällt die schlechteste Fitness der ersten Generation im Vergleich zur initialen,
-aber sowohl die durchschnittliche, als auch die beste Fitness ansteigen.
+Führt man den Prototypen mit den Testdaten aus,
+ so lässt sich für die Fitnesswerte die Entwicklung in \autoref{fig:fitness} beobachten.
+Zwar fällt die schlechteste Fitness nach der initialen Generation ab,
+aber sowohl die durchschnittliche, als auch die beste Fitness steigen an.
 Dies bedeutet, dass zwar mindestens ein Gen mit einer schlechteren Fitness entsteht,
 jedoch insgesamt \enquote{bessere} Gene erzeugt werden.
 
@@ -52,8 +54,8 @@ Dies ist auch das in diesem Durchlauf erreichte Optimum.
 Das beste Gen erreicht diesen Wert bereits in der siebten Generation.
 
 Die schlechteste Fitness fällt nach der initialen Generation ab,
-steigt dann aber wieder an und konvergiert zunächst gegen ca. $0,82$,
-macht jedoch dann in der letzten Generation einen Sprung zu ca. $0,953$.
+steigt aber wieder an und konvergiert zunächst gegen ca. $0,82$,
+macht jedoch in der letzten Generation einen Sprung zu ca. $0,953$.
 Wahrscheinlich werden in dieser Generation die verbleibenden \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
 
 \begin{figure}[ht]
@@ -129,18 +131,18 @@ Interessanterweise sind in der zwölften Generation
 die Fitnesswerte des besten und des schlechtesten Gens identisch mit $0,9531284454244\highlight{lime!30}{763}$.
 Der Gesamtdurchschnitt wird jedoch lediglich mit $0,9531284454244\highlight{lime!30}{685}$ angegeben.
 In den letzten drei Ziffern ist der Durchschnitt also geringer als das Minimum.
-Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der Berechnug zurückgeführt werden.
+Mathematisch ist dies zwar unmöglich, kann aber auf numerische Fehler bei der Berechnung zurückgeführt werden.
 
 Daraus, dass in der letzten Generation sowohl Minimum und Maximum die gleiche Fitness haben,
 als auch alle Gene die Bedingungen erfüllen kann geschlossen werden, dass in dieser Generation alle Gene identisch sind.
-Somit endet der Algorithmus sinnvollerweiße an dieser Stelle.
+Somit endet der Algorithmus sinnvollerweise an dieser Stelle.
 
 \subsection{Entwicklung gültiger Gene}
 
 \autoref{fig:ueberlebende} zeigt die Anzahl der gültigen Gene im Verlauf der Generationen.
-In der initialen Generation erfüllen lediglich $338$ Gene - etwa ein Drittel - die gestellten Bedingungen.
-Von Generation $1$ bis $9$ schwank diese Zahl zwischen $848$ und $916$ um dann zu steigen,
- bis in Generation $14$ alle Gene gültig sind.
+In der initialen Generation erfüllen lediglich $391$ Gene - etwa ein 78\% - die gestellten Bedingungen.
+Von Generation $1$ bis $8$ schwank diese Zahl zwischen $452$ und $461$ um dann zu steigen,
+ bis in Generation $12$ alle Gene gültig sind.
 
 \begin{figure}[ht]
     \centering
@@ -149,8 +151,8 @@ Von Generation $1$ bis $9$ schwank diese Zahl zwischen $848$ und $916$ um dann z
             legend pos=south east,
             enlarge x limits=false,
             enlarge y limits=false,
-            width=8.09cm,
-            height=5cm,
+            width=12cm,
+            height=7.41cm,
             ymin=375,
             ymax=500
         ]
@@ -179,10 +181,11 @@ Von Generation $1$ bis $9$ schwank diese Zahl zwischen $848$ und $916$ um dann z
 	\label{fig:ueberlebende}
 \end{figure}
 
+\newpage
 \subsection{Entwicklung der Mutationsrate}
 
 In \autoref{fig:mutationsrate} wird die Entwicklung der Mutationsrate dargestellt.
-Der Anstieg in den ersten beiden Generationen und späeter Rückgang zeigt,
+Der Anstieg in den ersten beiden Generationen und spätere Rückgang zeigt,
 dass gerade am Anfang durch Mutationen eine deutliche Verbesserung der Gene erreicht werden kann.
 Gegen Ende nimmt diese Verbesserung ab. Hieraus lässt sich auf ein (lokales) Optimum schließen.
 
@@ -193,8 +196,8 @@ Gegen Ende nimmt diese Verbesserung ab. Hieraus lässt sich auf ein (lokales) Op
             legend pos=south east,
             enlarge x limits=false,
             enlarge y limits=false,
-            width=8.09cm,
-            height=5cm,
+            width=12cm,
+            height=7.41cm,
             ymin=0,
             ymax=5
         ]
