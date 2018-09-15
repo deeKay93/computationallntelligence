@@ -3,7 +3,7 @@
 Der diesem Programmentwurf angehängte Prototyp basiert grundlegend auf der Implementierung in \cite{Quiz15Th91:online}.
 Diese Implementierung löst das Knappsackproblem mit Hilfe eines Genitischen Algorithmus.
 Sie wurde auf die hier beschriebenen Methoden angepasst und unter anderm
-in folgenden Punkten geändert:
+in diesen Punkten geändert:
 \begin{itemize}
     \item Eingabe der Daten über eine wohlgeformte CSV-Datei anstatt einer unübersichtlichen Textdatei.
     \item Entfernen der ungültigen Gene aus der Population anstatt sie \enquote{nur} mit einer Fitness von $0$ zu versehen.
@@ -17,6 +17,24 @@ Die Orte der Tesdtdaten entstammen aus tatsächlichen Spendeorten in einem Umkre
 Da lediglich Daten bis Mitte Dezember 2018 vorliegen,
 werden für die Testdaten zufällige Termine für das Jahr 2019 erzeugt.
 
+In den nächsten Unterabschnitten wird der Verlauf verscheidener Werte während eines Durchlaufes betrachtet.
+Hierzu wird das Programm mit folgenden Parametern ausgeführt:
+\begin{table}[ht]% Try here, and then top
+    \begin{center}
+        \begin{tabular}{l|c}
+            Parameter                       & Wert \\
+            \hline
+            Population                      & $500$  \\
+            Maximale Iterationen            & $1000$ \\
+            Anteil der Elite                & $20\%$ \\
+            Mutationswahrscheinlichkeit     & $80\%$ \\
+            Initiale Schrittweite           & $3$     \\
+            Präzision für Stoppbedingung  & $10^{-4}$
+        \end{tabular}
+    \end{center}
+    \caption{Parameter }
+  \end{table}
+
 
 % Echte Daten von:
 % https://www.blutspende.de/infos-zur-blutspende/blutspende-termine/blutspendetermine.php?umkreis=25&abgeschickt=1&plz_ort_eingabe=74076&d_v_eingabe=13.09.2018
@@ -29,13 +47,13 @@ aber sowohl die durchschnittliche, als auch die beste Fitness ansteigen.
 Dies bedeutet, dass zwar mindestens ein Gen mit einer schlechteren Fitness entsteht,
 jedoch insgesamt \enquote{bessere} Gene erzeugt werden.
 
-Der beste und der durchschnittliche Fitnesswert konvertieren gegen $\sim~0,953$.
+Der beste und der durchschnittliche Fitnesswert konvertieren gegen ca. $0,953$.
 Dies ist auch das in diesem Durchlauf erreichte Optimum.
 Das beste Gen erreicht diesen Wert bereits in der siebten Generation.
 
 Die schlechteste Fitness fällt nach der initialen Generation ab,
-steigt dann aber wieder an und konvergiert zunächst gegen $\sim~0,82$,
-macht jedoch dann in der letzten Generation einen Sprung zu $\sim~0,953$.
+steigt dann aber wieder an und konvergiert zunächst gegen ca. $0,82$,
+macht jedoch dann in der letzten Generation einen Sprung zu ca. $0,953$.
 Wahrscheinlich werden in dieser Generation die verbleibenden \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
 
 Interessanterweise sind in der zwölften Generation
