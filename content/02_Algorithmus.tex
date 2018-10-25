@@ -14,7 +14,7 @@ dass die eine Liste der möglichen Spendetermine wie folgt eingegeben wird:
 \end{table}
 
 
-Für den Algorithmus selbst sind hierbei lediglich die letzten beiden Merkmale notwendig.
+Der Algorithmus selbst benötigt hierbei lediglich das Datum und die Distanz.
 Die anderen Merkmale dienen der finalen Darstellung für den Anwender.
 
 Das Problem ähnelt stark dem bekannten \emph{Knappsackproblem}.
@@ -26,7 +26,7 @@ Einhaltung bestimmter Regeln maximiert werden.
 Ergänzt wird dieses Problem durch die Minimierung der zurückgelegten Strecke.
 
 \subsection{Genstring}
-Wie auch bei einem Knappsackproblem üblich wird der Genstring wird als Bitstring modelliert.
+Wie auch bei einem Knappsackproblem üblich wird der Genstring als Bitstring modelliert.
 Somit gilt:
 
 \begin{equation}
@@ -43,23 +43,24 @@ Somit gilt:
 Die Bewertungsfunktion hat das Ziel die Anzahl der besuchten Termine zu maximieren und die Gesamtstrecke zu minimieren.
 Dies soll unter Beachtung der bereits vorgestellten Bedingungen geschehen.
 
-Im Vergleich zu beispielsweiße einer Produktionsplanung gibt es bei den Bedingungen keinen Spielraum.
+Im Vergleich zu einer Produktionsplanung gibt es bei den Bedingungen keinen Spielraum.
 In einer Produktionsplanung ist es möglicherweise gestattet die maximale Anzahl der Stunden zu überschreiten.
 Dies wird in der Fitness entsprechend bestraft. Aber sollte das beste Ergebnis Überstunden enthalten ist es dennoch ein gültiges Ergebnis.
 
 Die Bedingungen für das Blutspenden sind jedoch \enquote{harte} Bedingungen.
-Das heißt, dass beispielsweiße keine Spende möglich ist, wenn die letzte Spende erst 55 Tage her ist und nicht die geforderten 56.
-Um solche Ergebnisse zu verhindern ist die Fitness für diese Gene $0$ und im weiteren Verlauf werden diese Gene aus der Population entfernt.
+Das heißt, dass beispielsweise keine Spende möglich ist, wenn die letzte Spende erst 55 Tage her ist und nicht die geforderten 56.
+Um solche Ergebnisse zu verhindern wird die Fitness für diese Gene auf $0$ gesetzt und nicht durch eine Bestrafung verringert.
+Im weiteren Verlauf werden diese Gene aus der Population entfernt und können sich nicht reproduzieren.
 
 Da die Anzahl der Spenden innerhalb von 12 Monaten geschlechterspezifisch ist,
-fließt diese Zahl durch die Konstante $c$ in die Berechnung mit ein.
+fließt diese Zahl als Konstante $c$ in die Berechnung mit ein.
 
 Die Anzahl der besuchten Termine und eine minimale Strecke sind zwei sich entgegenstehende Ziele.
-Würde man keinen der Termine wahrnehmen, so wäre die Gesamtstrecke gleich $0$ und damit optimal.
+Würde keiner Termine wahrgenommen werden, wäre die Gesamtstrecke $0$ und somit optimal.
 
 Daher wird eine Gewichtung der beiden Merkmale durchgeführt.\linebreak
-$w~\in~[0,1]$ steht hierbei für die Gewichtung der Anzahl.
-Entsprechend ist $(1-w)$ die Gewichtung für die Strecke.
+$w~\in~[0,1]$ steht hierbei für die Gewichtung der Anzahl besuchter Termine.
+Entsprechend ist $(1-w)$ die Gewichtung der Strecke.
 Um sicherzustellen, dass das Gewicht für beide Merkmale den gleichen Einfluss besitzt,
 werden die jeweiligen Bewertungen auf den Bereich $[0,1]$ normiert.
 Für die Anzahl geschieht dies durch eine Division mit $c$.
@@ -93,7 +94,7 @@ Die Funktion $B(x)$ bestimmt hierbei, ob die Nebenbedingungen erfüllt sind.
     \end{cases}
 \end{equation}
 
-In Formel \ref{eqn:bedingung} ist die Formel für die Bedingungen dargestellt.
+\ref{eqn:bedingung} stellt die Bedingungen dar.
 $t_i$ steht hierbei für das Datum eines Spendetermins.
 $t_j - t_i <= 1y$ ist wahr, wenn der Abstand zwischen den beiden Terminen höchstens ein Jahr ist.
 $t_j - t_i < 56d$ ist wahr, wenn der Abstand kleiner als 56 Tage ist.
@@ -138,7 +139,7 @@ Folgende Tabelle zeigt beispielhaft den Crossover an Position 4 von zwei Bitstri
 
 Die Auswahl der zu kombinierenden Eltern geschieht durch eine \emph{Tournament Selection} mit vier Teilnehmern.
 Wie in \autoref{fig:tournament} dargestellt werden erst jeweils zwei der vier Teilnehmer miteinander verglichen.
-Jeweils die besten beiden werden dann nochmals miteinander verglichen um den Sieger zu ermittelt.
+Jeweils die besten beiden werden anschließend nochmal miteinander verglichen um den Sieger zu ermittelt.
 
 \begin{figure}[h]
     \centering
@@ -173,7 +174,7 @@ Wird ein inaktives Bit aktiviert, so ist die Wahrscheinlichkeit hoch, dass eine 
 
 Daher wird zur Mutation kein Bit invertiert, sondern zufällig ein aktives Bit in seiner unmittelbaren Nachbarschaft verschoben.
 Die Weite und Richtung der Verschiebung werden zufällig ermittelt. Als maximal mögliche Verschiebung wird die Schrittweite angenommen.
-Diese wird initial gesetzt und dann mittels der $\frac{1}{5}$-Regel iterativ angepasst.
+Diese wird initial gesetzt und mittels der $\frac{1}{5}$-Regel iterativ angepasst.
 
 Die Regel besagt, dass die Schrittweite erhöht wird, falls mehr als $\frac{1}{5}$ der Mutationen besser sind als ihre Ursprungs-Gene
 und verringert wird, falls weniger als $\frac{1}{5}$ erfolgreich sind.
@@ -187,13 +188,14 @@ Dies ist jedoch mit der vorherigen Rekombination zweier Gene möglich.
 Initial wird die Population erzeugt,
 indem für jedes Gen drei zufällige Bits gesetzt werden.
 Um die Wahrscheinlichkeit zu reduzieren, dass diese Bits zu Nah zueinander sind,
-wird jedes der Bits auf ein Drittel des Genstrings beschränkt.
+wird der Genstring in 3 gleich große Bereiche aufgeteilt.
+Aus jedem dieser Bereiche wird anschließend ein Bit zufällig gewählt.
 
 Zum Vergleich wurden 100-mal jeweils Populationen von 1000 Genen mit beiden Verfahren erzeugt.
-Der Versuch zeigt, dass mit ohne diese Beschränkung lediglich etwa 35\% der Gene die Bedingungen erfüllen.
+Der Versuch zeigt, dass ohne diese Beschränkung lediglich etwa 35\% der Gene die Bedingungen erfüllen.
 Die Beschränkung hebt den Anteil der gültigen Gene auf etwa 80\%.
 
-Die hohe Zahl an ungültigen Genen hat den Nachteil,
+Die dennoch hohe Anzahl an ungültigen Genen hat den Nachteil,
 dass anfangs nur wenige \enquote{nützliche} Gene zur Verfügung stehen.
 Dies wird durch eine hohe Populationszahl kompensiert.
 Ein prototypisches Programm, welches in \autoref{sec:prototyp} vorgestellt wird,
@@ -227,8 +229,9 @@ wenn die maximal mögliche Anzahl von Terminen besucht werden soll.
 Hat man die maximale Anzahl von Terminen mit einer -- unter diesen Bedingungen -- minimalen Gesamtstrecke erreicht,
 so lässt sich die Strecke nur noch verringern, indem die Anzahl der Termine verringert wird.
 
-Für alle Kombinationen, in welchen sich die Fitness des einen Aspekts nur noch verbessern lässt,
-indem die Fitness des Anderen Aspekts verschlechtert spricht man von einer \emph{Pareto-Front}.
+Wenn die Fitness eines Aspekts nur noch verbessert werden kann,
+wenn sich im Gegenzug die Fitness eines anderen Aspekts verschlechtert,
+wird dies \emph{Pareto-Front} genannt.
 
 \begin{figure}[h]
     \centering
@@ -238,7 +241,7 @@ indem die Fitness des Anderen Aspekts verschlechtert spricht man von einer \emph
 \end{figure}
 
 Eine mögliche Darstellung der Pareto-Front zeigt \autoref{fig:pareto}.
-Zum Beispiel ist$f1$ die Fitness der Anzahl und $f2$ die Fitness der Strecke.
+Zum Beispiel ist $f1$ die Fitness der Anzahl und $f2$ die Fitness der Strecke.
 In diesem Programmentwurf lässt sich mittels der Gewichtung steuern,
 in welchem Bereich der Pareto-Front eine Lösung gesucht wird.
 Je stärker die Anzahl gewichtet wird, desto weiter Links befindet sich die Lösung in diesem Schaubild.

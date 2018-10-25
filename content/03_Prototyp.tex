@@ -17,7 +17,8 @@ Die Orte der Testdaten entstammen aus tatsächlichen Spende-Orten in einem Umkre
 Da lediglich Daten bis Mitte Dezember 2018 vorliegen,
 werden für die Testdaten zufällige Termine für das Jahr 2019 erzeugt.
 
-In den nächsten Unterabschnitten wird der Verlauf verschiedener Werte während eines Durchlaufes betrachtet.
+In den nächsten Unterabschnitten wird der Verlauf von Fitness, der Anzahl gültiger Gene und der Mutationsrate
+während eines Durchlaufes betrachtet.
 Hierzu wird das Programm mit folgenden Parametern ausgeführt:
 \begin{table}[ht]% Try here, and then top
     \begin{center}
@@ -29,7 +30,9 @@ Hierzu wird das Programm mit folgenden Parametern ausgeführt:
             Anteil der Elite                & $20\%$ \\
             Mutationswahrscheinlichkeit     & $80\%$ \\
             Initiale Schrittweite           & $3$     \\
-            Präzision für Stoppbedingung  & $10^{-4}$
+            Präzision für Stoppbedingung    & $10^{-4}$\\
+            Gewichtung der Anzahl von Terminen    & $70\%$\\
+            Geschlecht                            & Männlich
         \end{tabular}
     \end{center}
     \caption{Parameter}
@@ -54,9 +57,9 @@ Dies ist auch das in diesem Durchlauf erreichte Optimum.
 Das beste Gen erreicht diesen Wert bereits in der siebten Generation.
 
 Die schlechteste Fitness fällt nach der initialen Generation ab,
-steigt aber wieder an und konvergiert zunächst gegen ca. $0,82$,
-macht jedoch in der letzten Generation einen Sprung zu ca. $0,953$.
-Wahrscheinlich werden in dieser Generation die verbleibenden \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
+steigt aber wieder an und konvergiert zunächst gegen ca. $0,82$.
+Macht jedoch in der letzten Generation einen Sprung zu ca. $0,953$.
+In dieser Generation werden die verbleibenden \enquote{weniger guten} Gene durch das beste gefundene Gen verdrängt.
 
 \begin{figure}[ht]
     \centering
@@ -141,7 +144,7 @@ Somit endet der Algorithmus sinnvollerweise an dieser Stelle.
 
 \autoref{fig:ueberlebende} zeigt die Anzahl der gültigen Gene im Verlauf der Generationen.
 In der initialen Generation erfüllen lediglich $391$ Gene - etwa ein 78\% - die gestellten Bedingungen.
-Von Generation $1$ bis $8$ schwank diese Zahl zwischen $452$ und $461$ um dann zu steigen,
+Von Generation $1$ bis $8$ schwankt diese Zahl zwischen $452$ und $461$ um anschließend anzusteigen,
  bis in Generation $12$ alle Gene gültig sind.
 
 \begin{figure}[ht]
